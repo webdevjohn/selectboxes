@@ -1,0 +1,30 @@
+{
+    "name": "webdevjohn/selectboxes",
+    "description": "Elegant creation of Selectboxes for use within HTML forms.",
+    "keywords": [
+        "laravel",
+        "SelectBoxes"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^8.0",     
+        "laravel/framework": "^8.0"
+    },
+    "authors": [
+        {
+            "name": "John"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Webdevjohn\\SelectBoxes\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webdevjohn\\SelectBoxes\\SelectBoxesServiceProvider"
+            ]
+        } 	
+    }
+}

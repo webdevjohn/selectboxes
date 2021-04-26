@@ -1,0 +1,14 @@
+<?php
+
+namespace DummyNamespace;
+
+use Webdevjohn\SelectBoxes\SelectBoxes;
+
+class DummyClass extends SelectBoxes 
+{    
+	public function get(): array
+    {
+        return  [            
+        ];
+    }
+}
