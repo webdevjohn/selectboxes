@@ -3,9 +3,12 @@
 namespace Webdevjohn\SelectBoxes\Commands;
 
 use Illuminate\Console\GeneratorCommand;
+use Webdevjohn\SelectBoxes\Commands\Traits\CustomisableNamespace;
 
 class MakePage extends GeneratorCommand
 {
+    use CustomisableNamespace;
+
     /**
      * The name and signature of the console command.
      *
