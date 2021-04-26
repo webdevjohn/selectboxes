@@ -1,10 +1,10 @@
 <?php
 
-namespace DummyNamespace;
+namespace App\Services\SelectBoxes\Pages;
 
-use Webdevjohn\SelectBoxes\SelectBoxes;
+use Webdevjohn\SelectBoxes\SelectBoxService;
 
-class DummyClass extends SelectBoxes 
+class DummyClass extends SelectBoxService 
 {    
 	public function get(): array
     {
