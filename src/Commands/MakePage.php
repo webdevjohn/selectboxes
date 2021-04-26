@@ -11,7 +11,7 @@ class MakePage extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'page:make {name} {App/Services/SelectBoxes/Pages}';
+    protected $signature = 'page:make {name} {DummyNamespace? : App/Services/SelectBoxes/Pages}';
 
     /**
      * The console command description.
