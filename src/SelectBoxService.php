@@ -2,9 +2,9 @@
 
 namespace Webdevjohn\SelectBoxes;
 
-use Webdevjohn\SelectBoxes\ModelFactory;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
+use Webdevjohn\SelectBoxes\ModelFactory;
 
 class SelectBoxService {
 	

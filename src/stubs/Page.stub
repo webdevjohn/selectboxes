@@ -8,6 +8,11 @@ class DummyClass extends SelectBoxService
 {    
 	public function get(): array
     {
-        return [];
+        return [
+            // 'usersList' => $this->createFrom('App\Models\User')
+            //     ->orderBy('created_at', sortOrder: 'DESC')
+            //     ->display('email')
+            //     ->asArray(),
+        ];
     }
 }

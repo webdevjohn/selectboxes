@@ -14,7 +14,9 @@ class ModelFactory {
 
 		$model = new $model;
 	
-		if ($this->isEloquentModel($model)) return $model;
+		if ($this->isEloquentModel($model)) {
+			return $model;
+		}
 	
 		throw new Exception("Model creation error: " . get_class($model) . " is not an instance of \Illuminate\Database\Eloquent\Model");
 	}

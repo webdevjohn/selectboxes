@@ -67,7 +67,4 @@ trait CustomisableNamespace {
     {
         return strpos($theString, $needle) !== FALSE;
     } 
-
-
-
 }
