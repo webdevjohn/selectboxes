@@ -3,7 +3,7 @@
 namespace Webdevjohn\SelectBoxes;
 
 use Illuminate\Support\ServiceProvider;
-use Webdevjohn\SelectBoxes\Commands\MakePage;
+use Webdevjohn\SelectBoxes\Commands\MakeGroup;
 
 class SelectBoxesServiceProvider extends ServiceProvider
 {
@@ -14,9 +14,6 @@ class SelectBoxesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([
-            __DIR__.'/../config/selectboxes.php' => config_path('selectboxes.php'),
-        ]);
     }
 
         
@@ -27,6 +24,6 @@ class SelectBoxesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->commands(MakePage::class);
+        $this->commands(MakeGroup::class);
     }
 }

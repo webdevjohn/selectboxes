@@ -2,41 +2,39 @@
 
 namespace Webdevjohn\SelectBoxes;
 
-use Exception;
-use Illuminate\Contracts\Config\Repository;
+use Illuminate\Support\Collection;
 use Webdevjohn\SelectBoxes\ModelFactory;
 
 class SelectBoxService {
 	
+	/**
+	 * The select box list.
+	 */
+	protected mixed $list;
+	
+	/**
+	 * The option text to display in the select box.
+	 */
+	protected string $optionText;
+
+	/**
+	 * The option value for the select box.
+	 */
+	protected string $optionValue;
+
 	public function __construct(
-		protected ModelFactory $modelFactory,
-		protected Repository $config
+		protected ModelFactory $modelFactory
 	){}
 
 
 	/**
-	 * Factory method that instantiates a Page class and retrieves 
-	 * the select boxes for a given page.
-	 *
-	 * @param string $page
-	 * @return object
-	 */
-	public function createForPage(string $page): object
-	{
-		$page = $this->pages($page);
-
-		return new $page($this->modelFactory, $this->config);
-	}
-
-
-	/**
-	 * Create a new list from a given model with fully qualified namespace.    
+	 * Create a new list from a given model (with fully qualified namespace).    
 	 *
 	 * @param string $model
 	 * 
-	 * @return self
+	 * @return SelectBoxService
 	 */
-	public function createFrom(string $model): self
+	public function createFrom(string $model): SelectBoxService
 	{
 		$this->list = $this->modelFactory->make($model);
 
@@ -45,33 +43,47 @@ class SelectBoxService {
 
 
 	/**
-	 * Order the list by a given field.  The default sort order of 'ASC'
-	 * can be overridden.
-	 *
-	 * @param string $orderBy
-	 * @param string $sortOrder (default 'ASC')
 	 * 
-	 * @return self
+	 * @param string $optionText 
+	 * @param string $optionValue 
+	 * 
+	 * @return SelectBoxService
 	 */
-	public function orderBy(string $orderBy, string $sortOrder = 'ASC'): self
+	public function display(string $optionText, string $optionValue = 'id'): SelectBoxService
 	{
-		$this->list = $this->list->orderBy($orderBy, $sortOrder);
+		$this->optionText = $optionText;
+		$this->optionValue = $optionValue;
 
 		return $this;
 	}
 
 
-	/**
-	 * The name of the field to display in the select box.
+	/**	 
 	 *
-	 * @param string $field
-	 * @param string $keyField
+	 * @param string $column
+	 * @param string $operator
+	 * @param string $value
 	 * 
-	 * @return self
+	 * @return SelectBoxService
 	 */
-	public function display(string $field, string $keyField = 'id'): self
+	public function where(string $column, string $operator, string $value): SelectBoxService
 	{
-		$this->list = $this->list->pluck($field, $keyField);
+		$this->list = $this->list->where($column, $operator, $value);
+		
+		return $this;
+	}
+
+
+	/**
+	 *
+	 * @param string $orderBy
+	 * @param string $sortOrder (default = 'asc')
+	 * 
+	 * @return SelectBoxService
+	 */
+	public function orderBy(string $orderBy, string $sortOrder = 'asc'): SelectBoxService
+	{
+		$this->list = $this->list->orderBy($orderBy, $sortOrder);
 
 		return $this;
 	}
@@ -86,14 +98,14 @@ class SelectBoxService {
 	 * @return array
 	 */
 	public function asArray(bool $placeHolder = true, string $placeHolderText = 'Please Select....'): array
-	{					
-		$this->list = $this->list->toArray();
+	{				
+		$list = $this->createList()->toArray();
 
 		if ($placeHolder) {		
-			return $this->addPlaceHolder($this->list, $placeHolderText);
+			return $this->addPlaceHolder($list, $placeHolderText);
 		}
 
-		return $this->list;
+		return $list;
 	}
 
 
@@ -107,30 +119,24 @@ class SelectBoxService {
 	 */
 	public function asJson(bool $placeHolder = true, string $placeHolderText = 'Please Select....'): string
 	{
-		$this->list = $this->list->toJson();
+		$list = $this->createList()->toJson();
 
 		if ($placeHolder) {		
-			return $this->addPlaceHolder($this->list, $placeHolderText);
+			return $this->addPlaceHolder($list, $placeHolderText);
 		}
 
-		return $this->list;
+		return $list;
 	}
 
 
 	/**
-	 * Returns a fully qualified path for a given page.
+	 * Create the list.
 	 *
-	 * @param string $page
-	 * 
-	 * @return string
+	 * @return Collection
 	 */
-	protected function pages(string $page): string
+	protected function createList(): Collection
 	{
-		if ( ! $this->config->has('selectboxes')) {
-			throw new Exception("Config error: The config\selectboxes.php file doesn't exist.");
-		}
-	
-		return $this->config->get('selectboxes')[$page];	
+		return $this->list->pluck($this->optionText, $this->optionValue);
 	}
 
 

@@ -5,7 +5,7 @@ namespace Webdevjohn\SelectBoxes\Commands;
 use Illuminate\Console\GeneratorCommand;
 use Webdevjohn\SelectBoxes\Commands\Traits\CustomisableNamespace;
 
-class MakePage extends GeneratorCommand
+class MakeGroup extends GeneratorCommand
 {
     use CustomisableNamespace;
 
@@ -14,14 +14,14 @@ class MakePage extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'page:make {name} {DummyNamespace? : App/Services/SelectBoxes/Pages}';
+    protected $signature = 'group:make {name} {DummyNamespace? : App/Services/SelectBoxes/Groups}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new page.';
+    protected $description = 'Create a new select box group.';
     
     /**
      * Get the stub file for the generator.
@@ -30,7 +30,7 @@ class MakePage extends GeneratorCommand
      */
     protected function getStub()
     {
-        return realpath(__DIR__ . '/../stubs/Page.stub');
+        return realpath(__DIR__ . '/../stubs/Group.stub');
     }
 
     /**
@@ -40,6 +40,6 @@ class MakePage extends GeneratorCommand
      */
     protected function appendRootNamespace()
     {
-        return '\\Services\\SelectBoxes\\Pages';
+        return '\\Services\\SelectBoxes\\Groups';
     }
 }
