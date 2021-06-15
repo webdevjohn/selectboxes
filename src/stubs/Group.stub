@@ -2,6 +2,7 @@
 
 namespace DummyNamespace;
 
+use App\Models\User;
 use Webdevjohn\SelectBoxes\SelectBoxService;
 
 class DummyClass extends SelectBoxService 
@@ -9,9 +10,9 @@ class DummyClass extends SelectBoxService
 	public function get(): array
     {
         return [
-            // 'usersList' => $this->createFrom('App\Models\User')
-            //     ->orderBy('created_at', sortOrder: 'DESC')
+            // 'usersList' => $this->createFrom(User::class)
             //     ->display('email')
+            //     ->orderBy('created_at', sortOrder: 'DESC')
             //     ->asArray(),
         ];
     }
